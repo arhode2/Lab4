@@ -34,7 +34,7 @@ public class Colosseum {
      * Input scanner. Use this to take in user's input for buildPokemon(). <br>
      * Useful functions: next(), nextInt() .
      */
-    static Scanner myScan;
+    static Scanner myScan = new Scanner(System.in);
 
     /**
      * How we will build our Pokemon to battle.
@@ -73,6 +73,26 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
+        //
+        System.out.print("Please name your Pokemon: ");
+        tempPokemon.name = myScan.next();
+        System.out.print("How many hitpoints will it have? (1-50): ");
+        while (myScan.nextInt() > MAX_HIT_POINTS) {
+            System.out.println("Sorry. Hit points must be between 1 and 50: ");
+        }
+        tempPokemon.hitPoints = myScan.nextInt();
+        System.out.println("Split fifty points between attack level and defense level: ");
+        System.out.print("Enter your attack level (1-49): ");
+        while (myScan.nextInt() >= MAX_HIT_POINTS) {
+            System.out.println("Sorry. The attack level must be between 1 and 49");
+        }
+        tempPokemon.attackLevel = myScan.nextInt();
+        System.out.print("Enter your defense level (1-" + (MAX_HIT_POINTS - tempPokemon.attackLevel) + "): ");
+        while (myScan.nextInt() > (MAX_HIT_POINTS - tempPokemon.attackLevel)) {
+            System.out.println("Sorry. The defense level must be between 1 and " + (MAX_HIT_POINTS - tempPokemon.attackLevel) + ": ");
+        }
+        tempPokemon.defenseLevel = myScan.nextInt();
+        //
         return tempPokemon;
     }
 
